@@ -20,7 +20,7 @@ body {
   z-index: 0;
 }
 
-/* CONTENIDO */
+/* CONTENIDO PRINCIPAL */
 #content {
   position: relative;
   z-index: 1;
@@ -29,7 +29,7 @@ body {
 
 /* ENCABEZADO */
 .rainbow-text {
-  font-size: 2.5rem;
+  font-size: 3rem;
   background: linear-gradient(-45deg, #ff6ec4, #7873f5, #4ade80, #facc15);
   background-size: 400% 400%;
   -webkit-background-clip: text;
@@ -44,73 +44,98 @@ body {
 }
 
 .subheader {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: #555;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   animation: fadeInText 2s ease forwards;
   opacity: 0;
 }
+.subheader .love {
+  color: #e73370;
+  font-weight: bold;
+  animation: beat 1s infinite ease-in-out;
+}
+@keyframes beat {
+  0%,100% { transform: scale(1); }
+  50%     { transform: scale(1.1); }
+}
 
-/* COLLAGE */
+/* INSTRUCCIONES */
+.instructions p {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 30px;
+  opacity: 0;
+  animation: fadeInText 2s forwards;
+  animation-delay: 1s;
+}
+
+/* COLLAGE CON PARALLAX Y HOVER 3D */
 .collage {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 15px;
+  gap: 20px;
   margin-bottom: 40px;
-  perspective: 800px;
+  perspective: 1000px;
 }
 .collage img {
   width: 100%;
   border-radius: 15px;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.1);
   transform: rotateY(0deg) rotateX(0deg) scale(1);
-  transition: transform 0.6s ease, box-shadow 0.6s ease;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 .collage img:hover {
   transform: rotateY(15deg) rotateX(10deg) scale(1.05);
   box-shadow: 0 12px 24px rgba(0,0,0,0.2);
 }
 
-/* JUEGO */
+/* SECCIÓN DE JUEGO */
+.game {
+  margin-bottom: 50px;
+  animation: fadeInText 2s forwards;
+  animation-delay: 2s;
+  opacity: 0;
+}
 .game h2 {
-  font-size: 1.8rem;
-  margin-bottom: 15px;
+  font-size: 2rem;
   color: #ff6ec4;
+  margin-bottom: 15px;
 }
 #showPhrase {
-  padding: 12px 28px;
-  font-size: 1rem;
+  padding: 14px 32px;
+  font-size: 1.1rem;
   background: #7873f5;
   color: #fff;
   border: none;
   border-radius: 30px;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(120,115,245,0.4);
+  box-shadow: 0 4px 12px rgba(120,115,245,0.4);
   transition: transform 0.2s ease;
 }
 #showPhrase:hover {
-  transform: translateY(-3px) scale(1.05);
+  transform: translateY(-4px) scale(1.08);
 }
 #phraseBox {
   margin-top: 20px;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   color: #4ade80;
   min-height: 2em;
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.6s ease;
 }
 
 /* FOOTER */
 footer p {
   font-size: 1rem;
   color: #777;
-  margin-top: 50px;
-  animation: fadeInText 2s ease forwards;
-  animation-delay: 1s;
+  margin-top: 60px;
+  animation: fadeInText 2s forwards;
+  animation-delay: 3s;
   opacity: 0;
 }
 
-/* ANIMACIONES GENERALES */
+/* ANIMACIONES */
 @keyframes fadeInText {
   to { opacity: 1; }
 }

@@ -1,4 +1,4 @@
-// —— CONFETI Y CORAZONES ——
+// —— PARTICULAS: FLORES, CORAZONES Y CONFETI ——
 const canvas = document.getElementById('magic-canvas');
 const ctx = canvas.getContext('2d');
 let W, H;
@@ -15,23 +15,29 @@ class Particle {
     this.vx = vx; this.vy = vy;
     this.size = size;
     this.color = color;
-    this.shape = shape; // 'circle' | 'heart'
+    this.shape = shape; // 'circle' | 'heart' | 'flower'
     this.alpha = 1;
   }
   draw() {
     ctx.globalAlpha = this.alpha;
-    ctx.fillStyle = this.color;
-    ctx.beginPath();
-    if (this.shape === 'heart') {
-      const s = this.size / 2;
-      ctx.moveTo(this.x, this.y);
-      ctx.bezierCurveTo(this.x, this.y - s, this.x - s, this.y - s, this.x - s, this.y);
-      ctx.bezierCurveTo(this.x - s, this.y + s, this.x, this.y + s*1.5, this.x, this.y + s*2);
-      ctx.bezierCurveTo(this.x, this.y + s*1.5, this.x + s, this.y + s, this.x + s, this.y);
-      ctx.bezierCurveTo(this.x + s, this.y - s, this.x, this.y - s, this.x, this.y);
+    if (this.shape === 'flower') {
+      ctx.font = `${this.size * 2}px serif`;
+      ctx.fillStyle = this.color;
+      ctx.fillText('🌸', this.x, this.y);
+    } else if (this.shape === 'heart') {
+      ctx.fillStyle = this.color;
+      ctx.beginPath();
+      const x = this.x, y = this.y, s = this.size;
+      ctx.moveTo(x, y);
+      ctx.bezierCurveTo(x, y - s, x - s, y - s, x - s, y);
+      ctx.bezierCurveTo(x - s, y + s, x, y + s*1.5, x, y + s*1.8);
+      ctx.bezierCurveTo(x, y + s*1.5, x + s, y + s, x + s, y);
+      ctx.bezierCurveTo(x + s, y - s, x, y - s, x, y);
       ctx.fill();
     } else {
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
       ctx.fill();
     }
     ctx.globalAlpha = 1;
@@ -45,24 +51,26 @@ const particles = [];
 const colors = ['#ff6ec4','#7873f5','#4ade80','#facc15','#ff4081'];
 
 function emit() {
-  const count = 3;
+  const count = 4;
   for (let i = 0; i < count; i++) {
     const x = Math.random() * W;
     const y = H + 10;
     const angle = Math.random() * Math.PI - Math.PI/2;
     const speed = Math.random() * 2 + 1;
     const vx = Math.cos(angle) * speed;
-    const vy = Math.sin(angle) * speed * -1.2;
-    const size = Math.random() * 8 + 4;
+    const vy = Math.sin(angle) * speed * -1.1;
+    const size = Math.random() * 6 + 4;
     const color = colors[Math.floor(Math.random()*colors.length)];
-    const shape = Math.random() < 0.3 ? 'heart' : 'circle';
+    const shapeRand = Math.random();
+    const shape = shapeRand < 0.4 ? 'flower'
+                  : shapeRand < 0.7 ? 'heart' : 'circle';
     particles.push(new Particle(x, y, vx, vy, size, color, shape));
   }
 }
 
 function loop() {
   ctx.clearRect(0, 0, W, H);
-  if (particles.length < 400 && Math.random() < 0.3) emit();
+  if (particles.length < 500 && Math.random() < 0.4) emit();
   particles.forEach((p, i) => {
     p.draw();
     if (p.alpha <= 0) particles.splice(i, 1);
@@ -71,7 +79,7 @@ function loop() {
 }
 loop();
 
-// —— FRASES ROMÁNTICAS ——
+// —— JUEGUITO DE FRASES ——
 const frases = [
   "Eres mi niña hermosa y la adoro.",
   "Cada día a tu lado es pura magia.",
