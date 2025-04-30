@@ -2,7 +2,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  overflow: hidden;
+  overflow-x: hidden;
   font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(120deg, #ffe3f2 0%, #fffde7 100%);
   color: #333;
@@ -46,8 +46,8 @@ body {
   font-size: 1.3rem;
   color: #555;
   margin: 10px 0 30px;
-  animation: fadeInText 2s ease forwards;
   opacity: 0;
+  animation: fadeInText 2s ease forwards;
 }
 .subheader .love {
   color: #e73370;
@@ -63,43 +63,43 @@ body {
 .instructions p {
   font-size: 1rem;
   color: #666;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  opacity: 0;
   animation: fadeInText 2s forwards;
   animation-delay: 0.5s;
-  opacity: 0;
 }
 
 /* COLLAGE */
 .collage {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 20px;
-  margin-bottom: 40px;
+  gap: 16px;
+  margin-bottom: 30px;
   perspective: 1000px;
 }
 .collage img {
   width: 100%;
-  border-radius: 15px;
+  border-radius: 12px;
   box-shadow: 0 6px 14px rgba(0,0,0,0.1);
   transform: rotateY(0deg) rotateX(0deg) scale(1);
   transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 .collage img:hover {
-  transform: rotateY(15deg) rotateX(10deg) scale(1.05);
+  transform: rotateY(15deg) rotateX(10deg) scale(1.03);
   box-shadow: 0 12px 24px rgba(0,0,0,0.2);
 }
 
-/* JUEGO */
+/* SECCIÓN JUEGO */
 .game {
-  margin-bottom: 50px;
+  margin-bottom: 40px;
+  opacity: 0;
   animation: fadeInText 2s forwards;
   animation-delay: 1s;
-  opacity: 0;
 }
 .game h2 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   color: #ff6ec4;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 /* BOTÓN FLOR */
@@ -110,8 +110,8 @@ body {
 #showPhrase {
   background: #4ade80;
   border: none;
-  font-size: 2.5rem;
-  padding: 20px 30px;
+  font-size: 2.2rem;
+  padding: 16px 24px;
   border-radius: 50%;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(74,222,128,0.4);
@@ -122,24 +122,24 @@ body {
   transform: scale(1.1);
 }
 
-/* FLECHA ANIMADA */
+/* FLECHA */
 .arrow {
   position: absolute;
-  top: -50px;
+  top: -40px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 2rem;
+  font-size: 1.8rem;
   animation: bounce 1s infinite;
 }
 @keyframes bounce {
   0%,100% { transform: translate(-50%, 0); }
-  50%    { transform: translate(-50%, -15px); }
+  50%    { transform: translate(-50%, -12px); }
 }
 
 /* FRASE */
 #phraseBox {
-  margin-top: 20px;
-  font-size: 1.5rem;
+  margin-top: 16px;
+  font-size: 1.3rem;
   color: #7873f5;
   min-height: 2em;
   opacity: 0;
@@ -150,10 +150,10 @@ body {
 footer p {
   font-size: 1rem;
   color: #777;
-  margin-top: 60px;
+  margin-top: 40px;
+  opacity: 0;
   animation: fadeInText 2s forwards;
   animation-delay: 1.5s;
-  opacity: 0;
 }
 
 /* ANIMACIONES */
@@ -163,4 +163,20 @@ footer p {
 @keyframes pulse {
   0%,100% { transform: scale(1); }
   50%     { transform: scale(1.1); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .rainbow-text { font-size: 2rem; }
+  .subheader { font-size: 1rem; margin-bottom: 20px; }
+  .instructions p { font-size: 0.9rem; margin-bottom: 16px; }
+  .collage { gap: 12px; margin-bottom: 20px; }
+  .game h2 { font-size: 1.5rem; margin-bottom: 8px; }
+  #showPhrase {
+    font-size: 2rem;
+    padding: 14px 20px;
+  }
+  .arrow { font-size: 1.5rem; top: -30px; }
+  #phraseBox { font-size: 1.1rem; margin-top: 12px; }
+  footer p { font-size: 0.9rem; margin-top: 30px; }
 }

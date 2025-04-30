@@ -21,7 +21,7 @@ class Particle {
   draw() {
     ctx.globalAlpha = this.alpha;
     if (this.shape === 'flower') {
-      ctx.font = `${this.size * 2}px serif`;
+      ctx.font = `${this.size * 1.8}px serif`;
       ctx.fillStyle = this.color;
       ctx.fillText('🌸', this.x, this.y);
     } else if (this.shape === 'heart') {
@@ -50,30 +50,30 @@ class Particle {
 const particles = [];
 const colors = ['#ff6ec4','#7873f5','#4ade80','#facc15','#ff4081'];
 
-function emitAt(x, y) {
-  for (let i = 0; i < 10; i++) {
+function emitAt(x, y, count = 8) {
+  for (let i = 0; i < count; i++) {
     const angle = Math.random() * Math.PI * 2;
     const speed = Math.random() * 3 + 1;
     const vx = Math.cos(angle) * speed;
     const vy = Math.sin(angle) * speed;
     const size = Math.random() * 6 + 4;
     const color = colors[Math.floor(Math.random()*colors.length)];
-    const shapeRand = Math.random();
-    const shape = shapeRand < 0.4 ? 'flower'
-                  : shapeRand < 0.7 ? 'heart' : 'circle';
+    const r = Math.random();
+    const shape = r < 0.4 ? 'flower'
+                  : r < 0.7 ? 'heart' : 'circle';
     particles.push(new Particle(x, y, vx, vy, size, color, shape));
   }
 }
 
 function loop() {
   ctx.clearRect(0, 0, W, H);
-  // partículas de fondo
-  if (particles.length < 500 && Math.random() < 0.3) {
-    emitAt(Math.random() * W, H + 20);
+  // partículas de fondo aleatorias
+  if (particles.length < 600 && Math.random() < 0.2) {
+    emitAt(Math.random() * W, H + 20, 3);
   }
-  particles.forEach((p, i) => {
+  particles.forEach((p,i) => {
     p.draw();
-    if (p.alpha <= 0) particles.splice(i, 1);
+    if (p.alpha <= 0) particles.splice(i,1);
   });
   requestAnimationFrame(loop);
 }
@@ -91,14 +91,19 @@ const frases = [
 const btn = document.getElementById('showPhrase');
 const box = document.getElementById('phraseBox');
 
-btn.addEventListener('click', e => {
-  // efecto local
-  const rect = btn.getBoundingClientRect();
-  const cx = rect.left + rect.width/2;
-  const cy = rect.top + rect.height/2;
-  emitAt(cx, cy);
+// Explosión también al tocar cualquier parte
+document.addEventListener('click', e => emitAt(e.clientX, e.clientY, 10));
+document.addEventListener('touchstart', e => {
+  const t = e.touches[0];
+  emitAt(t.clientX, t.clientY, 10);
+}, {passive:true});
 
-  // mostrar frase
+// Solo mostrar frase al flor
+btn.addEventListener('click', e => {
+  emitAt(
+    e.clientX, e.clientY, 
+    20
+  );
   const f = frases[Math.floor(Math.random() * frases.length)];
   box.textContent = f;
   box.style.opacity = 1;
