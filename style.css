@@ -1,0 +1,116 @@
+/* RESET */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(120deg, #ffe3f2 0%, #fffde7 100%);
+  color: #333;
+  text-align: center;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* CANVAS */
+#magic-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* CONTENIDO */
+#content {
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+}
+
+/* ENCABEZADO */
+.rainbow-text {
+  font-size: 2.5rem;
+  background: linear-gradient(-45deg, #ff6ec4, #7873f5, #4ade80, #facc15);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbow 8s ease infinite;
+  margin-bottom: 10px;
+}
+@keyframes rainbow {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+.subheader {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 30px;
+  animation: fadeInText 2s ease forwards;
+  opacity: 0;
+}
+
+/* COLLAGE */
+.collage {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-bottom: 40px;
+  perspective: 800px;
+}
+.collage img {
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  transform: rotateY(0deg) rotateX(0deg) scale(1);
+  transition: transform 0.6s ease, box-shadow 0.6s ease;
+}
+.collage img:hover {
+  transform: rotateY(15deg) rotateX(10deg) scale(1.05);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+}
+
+/* JUEGO */
+.game h2 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #ff6ec4;
+}
+#showPhrase {
+  padding: 12px 28px;
+  font-size: 1rem;
+  background: #7873f5;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(120,115,245,0.4);
+  transition: transform 0.2s ease;
+}
+#showPhrase:hover {
+  transform: translateY(-3px) scale(1.05);
+}
+#phraseBox {
+  margin-top: 20px;
+  font-size: 1.3rem;
+  color: #4ade80;
+  min-height: 2em;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* FOOTER */
+footer p {
+  font-size: 1rem;
+  color: #777;
+  margin-top: 50px;
+  animation: fadeInText 2s ease forwards;
+  animation-delay: 1s;
+  opacity: 0;
+}
+
+/* ANIMACIONES GENERALES */
+@keyframes fadeInText {
+  to { opacity: 1; }
+}
