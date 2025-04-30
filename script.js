@@ -1,4 +1,4 @@
-// —— PARTICULAS: FLORES, CORAZONES Y CONFETI ——
+// —— CANVAS DE PARTICULAS ——
 const canvas = document.getElementById('magic-canvas');
 const ctx = canvas.getContext('2d');
 let W, H;
@@ -43,22 +43,19 @@ class Particle {
     ctx.globalAlpha = 1;
     this.x += this.vx;
     this.y += this.vy;
-    this.alpha -= 0.01;
+    this.alpha -= 0.02;
   }
 }
 
 const particles = [];
 const colors = ['#ff6ec4','#7873f5','#4ade80','#facc15','#ff4081'];
 
-function emit() {
-  const count = 4;
-  for (let i = 0; i < count; i++) {
-    const x = Math.random() * W;
-    const y = H + 10;
-    const angle = Math.random() * Math.PI - Math.PI/2;
-    const speed = Math.random() * 2 + 1;
+function emitAt(x, y) {
+  for (let i = 0; i < 10; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const speed = Math.random() * 3 + 1;
     const vx = Math.cos(angle) * speed;
-    const vy = Math.sin(angle) * speed * -1.1;
+    const vy = Math.sin(angle) * speed;
     const size = Math.random() * 6 + 4;
     const color = colors[Math.floor(Math.random()*colors.length)];
     const shapeRand = Math.random();
@@ -70,7 +67,10 @@ function emit() {
 
 function loop() {
   ctx.clearRect(0, 0, W, H);
-  if (particles.length < 500 && Math.random() < 0.4) emit();
+  // partículas de fondo
+  if (particles.length < 500 && Math.random() < 0.3) {
+    emitAt(Math.random() * W, H + 20);
+  }
   particles.forEach((p, i) => {
     p.draw();
     if (p.alpha <= 0) particles.splice(i, 1);
@@ -79,7 +79,7 @@ function loop() {
 }
 loop();
 
-// —— JUEGUITO DE FRASES ——
+// —— JUEGO DE FRASES ——
 const frases = [
   "Eres mi niña hermosa y la adoro.",
   "Cada día a tu lado es pura magia.",
@@ -91,7 +91,14 @@ const frases = [
 const btn = document.getElementById('showPhrase');
 const box = document.getElementById('phraseBox');
 
-btn.addEventListener('click', () => {
+btn.addEventListener('click', e => {
+  // efecto local
+  const rect = btn.getBoundingClientRect();
+  const cx = rect.left + rect.width/2;
+  const cy = rect.top + rect.height/2;
+  emitAt(cx, cy);
+
+  // mostrar frase
   const f = frases[Math.floor(Math.random() * frases.length)];
   box.textContent = f;
   box.style.opacity = 1;
